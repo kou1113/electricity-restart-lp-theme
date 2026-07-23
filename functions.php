@@ -51,6 +51,66 @@ function electricity_restart_page_url( $slug ) {
 }
 
 /**
+ * Return content and official support link for each electricity area LP.
+ *
+ * @param string $slug Area slug.
+ * @return array
+ */
+function electricity_restart_area_data( $slug ) {
+	$areas = array(
+		'tokyo' => array(
+			'name' => '東京電力エリア',
+			'description' => '東京都、神奈川県、埼玉県、千葉県、栃木県、群馬県、茨城県、山梨県、静岡県（富士川以東）エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '東京都', '神奈川県', '埼玉県', '千葉県', '茨城県', '栃木県', '群馬県', '山梨県', '静岡県（富士川以東）' ),
+			'faq' => '東京電力エリアは、東京都、神奈川県、埼玉県、千葉県、栃木県、群馬県、茨城県、山梨県、静岡県（富士川以東）になります。',
+			'support' => 'https://www.tepco.co.jp/ep/support/index-j.html',
+		),
+		'hokkaido' => array(
+			'name' => '北海道電力エリア', 'description' => '北海道エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '北海道' ), 'faq' => '北海道電力エリアは、北海道のみになります。',
+			'support' => 'https://www.hepco.co.jp/home/move/move01.html',
+		),
+		'tohoku' => array(
+			'name' => '東北電力エリア', 'description' => '青森県、岩手県、宮城県、秋田県、山形県、福島県、新潟県エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '青森県', '秋田県', '新潟県', '岩手県', '山形県', '宮城県', '福島県' ), 'faq' => '東北電力エリアは、青森県、岩手県、宮城県、秋田県、山形県、福島県、新潟県になります。',
+			'support' => 'https://www.tohoku-epco.co.jp/dprivate/inquery/call/',
+		),
+		'hokuriku' => array(
+			'name' => '北陸電力エリア', 'description' => '富山県、石川県、福井県嶺北地方および敦賀市、岐阜県飛騨市（旧神岡町全域、旧宮川村の一部のみ）および郡上市（旧白鳥町石徹白地区のみ）エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '富山県', '石川県', '福井県嶺北地方および敦賀市', '岐阜県飛騨市（旧神岡町全域、旧宮川村の一部のみ）および郡上市（旧白鳥町石徹白地区のみ）' ), 'faq' => '北陸電力エリアは、富山県、石川県、福井県嶺北地方および敦賀市、岐阜県飛騨市（旧神岡町全域、旧宮川村の一部のみ）および郡上市（旧白鳥町石徹白地区のみ）になります。',
+			'support' => 'https://www.rikuden.co.jp/tetsuzuki/',
+		),
+		'chubu' => array(
+			'name' => '中部電力エリア', 'description' => '長野県、愛知県、岐阜県（飛騨市、郡上市、関ケ原町を除く）、三重県（熊野市の一部地域以南を除く）、静岡県の富士川以西エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '愛知県', '長野県', '岐阜県（飛騨市、郡上市、関ケ原町を除く）', '静岡県の富士川以西', '三重県（熊野市の一部地域以南を除く）' ), 'faq' => '中部電力エリアは、長野県、愛知県、岐阜県（飛騨市、郡上市、関ケ原町を除く）、三重県（熊野市の一部地域以南を除く）、静岡県の富士川以西になります。',
+			'support' => 'https://miraiz.chuden.co.jp/home/procedures/',
+		),
+		'kansai' => array(
+			'name' => '関西電力エリア', 'description' => '京都府、大阪府、滋賀県、兵庫県（赤穂市福浦を除く）、奈良県、和歌山県、福井県（三方郡美浜町以西）、三重県の一部、岐阜県不破郡関ケ原町の一部エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '京都府', '奈良県', '福井県（三方郡美浜町以西）', '大阪府', '和歌山県', '岐阜県不破郡関ケ原町の一部', '滋賀県', '兵庫県（赤穂市福浦を除く）', '三重県（熊野市以南の一部地域）' ), 'faq' => '関西電力エリアは、京都府、大阪府、滋賀県、兵庫県（赤穂市福浦を除く）、奈良県、和歌山県、福井県（三方郡美浜町以西）、三重県（熊野市以南の一部地域）、岐阜県不破郡関ケ原町の一部になります。',
+			'support' => 'https://kepco.jp/faq/otoiawase/#tel',
+		),
+		'chugoku' => array(
+			'name' => '中国電力エリア', 'description' => '広島県、山口県、島根県、鳥取県、岡山県、兵庫県赤穂市福浦、香川県の一部、愛媛県の一部エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '広島県', '鳥取県', '山口県', '岡山県', '島根県', '兵庫県赤穂市福浦', '香川県小豆郡、香川郡直島町', '愛媛県越智郡上島町、今治市の一部' ), 'faq' => '中国電力エリアは、広島県、山口県、島根県、鳥取県、岡山県、兵庫県赤穂市福浦、香川県小豆郡、香川郡直島町、愛媛県越智郡上島町、今治市の一部になります。',
+			'support' => 'https://www.energia.co.jp/office/add-sales.html',
+		),
+		'shikoku' => array(
+			'name' => '四国電力エリア', 'description' => '香川県（一部地域を除く）、徳島県、愛媛県（一部地域を除く）、高知県エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '高知県', '徳島県', '香川県（小豆郡、香川郡直島町を除く）', '愛媛県（新居浜市別子山、越智郡上島町、今治市の一部を除く）' ), 'faq' => '四国電力エリアは、香川県（小豆郡、香川郡直島町を除く）、徳島県、愛媛県（新居浜市別子山、越智郡上島町、今治市の一部を除く）、高知県になります。',
+			'support' => 'https://www.yonden.co.jp/faq/tel.html',
+		),
+		'kyushu' => array(
+			'name' => '九州電力エリア', 'description' => '福岡県、長崎県、大分県、佐賀県、宮崎県、熊本県、鹿児島県エリアにて電気のご案内をさせていただいております',
+			'areas' => array( '福岡県', '佐賀県', '鹿児島県', '長崎県', '宮崎県', '大分県', '熊本県' ), 'faq' => '九州電力エリアは、福岡県、長崎県、大分県、佐賀県、宮崎県、熊本県、鹿児島県になります。',
+			'support' => 'https://customer.kyuden.co.jp/ja/moving/process.html',
+		),
+	);
+
+	return isset( $areas[ $slug ] ) ? $areas[ $slug ] : $areas['tokyo'];
+}
+
+/**
  * Create the required fixed pages and assign their templates on activation.
  */
 function electricity_restart_create_required_pages() {
@@ -58,6 +118,14 @@ function electricity_restart_create_required_pages() {
 		'company' => array( 'title' => '会社概要', 'template' => 'page-company.php' ),
 		'privacy' => array( 'title' => 'プライバシーポリシー', 'template' => 'page-privacy.php' ),
 		'thanks'  => array( 'title' => 'お問い合わせ完了', 'template' => 'page-thanks.php' ),
+		'hokkaido' => array( 'title' => '北海道電力エリア', 'template' => 'page-area.php' ),
+		'tohoku'   => array( 'title' => '東北電力エリア', 'template' => 'page-area.php' ),
+		'hokuriku' => array( 'title' => '北陸電力エリア', 'template' => 'page-area.php' ),
+		'chubu'    => array( 'title' => '中部電力エリア', 'template' => 'page-area.php' ),
+		'kansai'   => array( 'title' => '関西電力エリア', 'template' => 'page-area.php' ),
+		'chugoku'  => array( 'title' => '中国電力エリア', 'template' => 'page-area.php' ),
+		'shikoku'  => array( 'title' => '四国電力エリア', 'template' => 'page-area.php' ),
+		'kyushu'   => array( 'title' => '九州電力エリア', 'template' => 'page-area.php' ),
 	);
 
 	foreach ( $pages as $slug => $page_data ) {
@@ -79,6 +147,21 @@ function electricity_restart_create_required_pages() {
 	flush_rewrite_rules();
 }
 add_action( 'after_switch_theme', 'electricity_restart_create_required_pages' );
+
+/**
+ * Create newly added area pages once when an existing installation updates.
+ */
+function electricity_restart_maybe_create_area_pages() {
+	$pages_version = '2.1.0';
+
+	if ( get_option( 'electricity_restart_pages_version' ) === $pages_version ) {
+		return;
+	}
+
+	electricity_restart_create_required_pages();
+	update_option( 'electricity_restart_pages_version', $pages_version );
+}
+add_action( 'init', 'electricity_restart_maybe_create_area_pages' );
 
 function electricity_restart_error_redirect() {
 	wp_safe_redirect( add_query_arg( 'contact_error', '1', home_url( '/' ) ) . '#form' );

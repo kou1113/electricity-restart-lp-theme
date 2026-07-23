@@ -5,6 +5,14 @@
  * @package Electricity_Restart_LP
  */
 defined( 'ABSPATH' ) || exit;
+
+$electricity_restart_area_slug = isset( $electricity_restart_area_slug ) ? $electricity_restart_area_slug : 'tokyo';
+$electricity_restart_area      = electricity_restart_area_data( $electricity_restart_area_slug );
+$electricity_restart_tabs      = array(
+	'hokkaido' => '北海道電力エリア', 'tohoku' => '東北電力エリア', 'tokyo' => '東京電力エリア',
+	'hokuriku' => '北陸電力エリア', 'chubu' => '中部電力エリア', 'kansai' => '関西電力エリア',
+	'chugoku' => '中国電力エリア', 'shikoku' => '四国電力エリア', 'kyushu' => '九州電力エリア',
+);
 ?>
 <!doctype html>
 <html <?php language_attributes(); ?>>
@@ -14,13 +22,16 @@ defined( 'ABSPATH' ) || exit;
   <meta name="description" content="電気が止まってしまったときの相談窓口です。状況の確認から電力会社への申し込みまで、電気の開通に必要な手続きをサポートします。">
   <?php wp_head(); ?>
 </head>
-<body <?php body_class(); ?>>
+<body <?php body_class(); ?> data-area="<?php echo esc_attr( $electricity_restart_area_slug ); ?>">
   <?php wp_body_open(); ?>
   <nav class="area-tabs" aria-label="電力エリアを選択">
     <div class="container area-tabs-inner">
       <span class="area-tabs-label">電力エリア</span>
       <div class="area-tabs-scroll">
-        <span class="area-tab is-pending">北海道電力エリア</span><span class="area-tab is-pending">東北電力エリア</span><a class="area-tab is-current" href="#top" aria-current="page">東京電力エリア</a><span class="area-tab is-pending">北陸電力エリア</span><span class="area-tab is-pending">中部電力エリア</span><span class="area-tab is-pending">関西電力エリア</span><span class="area-tab is-pending">中国電力エリア</span><span class="area-tab is-pending">四国電力エリア</span><span class="area-tab is-pending">九州電力エリア</span>
+        <?php foreach ( $electricity_restart_tabs as $area_slug => $area_name ) : ?>
+          <?php $area_url = 'tokyo' === $area_slug ? home_url( '/' ) : electricity_restart_page_url( $area_slug ); ?>
+          <a class="area-tab<?php echo $area_slug === $electricity_restart_area_slug ? ' is-current' : ''; ?>" href="<?php echo esc_url( $area_url ); ?>"<?php echo $area_slug === $electricity_restart_area_slug ? ' aria-current="page"' : ''; ?>><?php echo esc_html( $area_name ); ?></a>
+        <?php endforeach; ?>
       </div>
     </div>
   </nav>
@@ -30,14 +41,14 @@ defined( 'ABSPATH' ) || exit;
     <section class="hero">
       <div class="container hero-grid">
         <div class="hero-copy">
-          <div class="service-labels"><strong>東京電力エリア</strong><span>電気サポート窓口</span></div>
-          <h1>東京電力エリア</h1>
+          <div class="service-labels"><strong><?php echo esc_html( $electricity_restart_area['name'] ); ?></strong><span>電気サポート窓口</span></div>
+          <h1><?php echo esc_html( $electricity_restart_area['name'] ); ?></h1>
           <h2>最短当日開通・土日対応</h2>
-          <p class="hero-lead">電気の開始・再開手続き専用窓口</p>
+          <p class="hero-lead"><?php echo esc_html( $electricity_restart_area['description'] ); ?></p>
           <div class="hero-actions">
             <a class="start-button" href="tel:0120186556"><strong>電話で開始／再開手続き</strong><small>受付時間 10:00-19:00</small></a>
             <a class="web-button" href="#form"><strong>WEBで開始／再開手続き</strong><small>24時間対応</small></a>
-            <a class="utility-button" href="https://www.tepco.co.jp/ep/support/index-j.html" target="_blank" rel="noopener noreferrer"><strong>解約のみ・停電などその他</strong><small>解約、地域停電、契約内容の確認など</small></a>
+            <a class="utility-button" href="<?php echo esc_url( $electricity_restart_area['support'] ); ?>" target="_blank" rel="noopener noreferrer"><strong>解約のみ・停電などその他</strong><small>解約、地域停電、契約内容の確認など</small></a>
           </div>
           <p class="completion-note">書類の記入や印鑑は不要です。<br>電話のみで開始手続きが完結できます。</p>
         </div>
@@ -46,8 +57,8 @@ defined( 'ABSPATH' ) || exit;
 
     <section class="area-summary" aria-labelledby="area-summary-title">
       <div class="container area-summary-inner">
-        <div><h2 id="area-summary-title">東京電力エリア全域で対応しています</h2></div>
-        <ul><li>東京都</li><li>神奈川県</li><li>埼玉県</li><li>千葉県</li><li>茨城県</li><li>栃木県</li><li>群馬県</li><li>山梨県</li><li>静岡県（富士川以東）</li></ul>
+        <div><h2 id="area-summary-title"><?php echo esc_html( $electricity_restart_area['name'] ); ?>全域で対応しています</h2></div>
+        <ul><?php foreach ( $electricity_restart_area['areas'] as $supported_area ) : ?><li><?php echo esc_html( $supported_area ); ?></li><?php endforeach; ?></ul>
       </div>
     </section>
 
@@ -78,7 +89,7 @@ defined( 'ABSPATH' ) || exit;
         <details open><summary>手続きにはどれくらい時間がかかりますか？</summary><p>内容にもよりますが、最短で5分程度のお電話で開始／再契約の手続きが完了します。</p></details>
         <details><summary>当日のお手続きは可能ですか？</summary><p>即日開通可能ですが、建物状況や時間帯によります。詳しくは <a href="tel:0120186556">0120-186-556</a> までご連絡ください。</p></details>
         <details><summary>土日祝日でも電気の開始はできますか？</summary><p>可能です。ご利用状況や時間帯によりますので、一度お問い合わせください。受付時間は10:00-19:00（不定休）、WEBは24時間受け付けています。</p></details>
-        <details><summary>東京電力エリアとはどこですか？</summary><p>東京都、神奈川県、埼玉県、千葉県、栃木県、群馬県、茨城県、山梨県、静岡県（富士川以東）です。</p></details>
+        <details><summary><?php echo esc_html( $electricity_restart_area['name'] ); ?>とはどこですか？</summary><p><?php echo esc_html( $electricity_restart_area['faq'] ); ?></p></details>
         <details><summary>電気を再開・再契約したい場合はどうすればよいですか？</summary><p>再通電については契約状況によってお手続き方法が異なります。詳しくは <a href="tel:0120186556">0120-186-556</a> までお問い合わせください。</p></details>
         <details><summary>電気料金の未払いにより電気が止まってしまった場合は？</summary><p>強制解約になっている場合もございます。詳しくは <a href="tel:0120186556">0120-186-556</a> までお問い合わせください。</p></details>
       </div>
