@@ -97,7 +97,8 @@ $electricity_restart_tabs      = array(
 
     <section class="section form-section" id="form">
       <div class="container narrow">
-        <div class="section-title inverse"><span>電気の開通をお急ぎの方へ</span><h2>電気の開通について無料相談</h2><p>必須項目は4つだけ。受付後、担当スタッフからお電話します。</p></div>
+        <p class="form-disclaimer">※当サイト「電気サポート窓口」は新電力の紹介を含むサービスサイトです。弊社は取次店であり、電力会社・送配電事業者の公式窓口ではありません。</p>
+        <div class="section-title inverse"><span>電気の開通をお急ぎの方へ</span><h2>電気の開始・再開手続き</h2><p>必須項目は4つだけ。受付後、担当スタッフからお電話します。</p></div>
         <?php if ( isset( $_GET['contact_error'] ) ) : ?>
           <p class="form-error" role="alert">送信できませんでした。入力内容をご確認のうえ、もう一度お試しください。</p>
         <?php endif; ?>
@@ -117,7 +118,7 @@ $electricity_restart_tabs      = array(
           <label><span>マンション・建物名 <i class="optional">任意</i></span><input name="building" type="text" autocomplete="address-line2" placeholder="例）○○マンション"></label>
           <label><span>号室 <i class="optional">任意</i></span><input name="room" type="text" autocomplete="address-line3" placeholder="例）101号室"></label>
           <label class="privacy"><input type="checkbox" name="privacy_agreed" value="1" required><span><a href="<?php echo esc_url( electricity_restart_page_url( 'privacy' ) ); ?>" target="_blank" rel="noopener noreferrer">プライバシーポリシー</a>およびサービス案内に同意する</span></label>
-          <button type="submit"><small>入力は約1分</small>無料で相談を申し込む</button>
+          <button type="submit"><small>入力は約1分</small>WEBで開始／再開を申し込む</button>
           <p class="form-note">送信後、担当スタッフよりお電話でご連絡します。</p>
         </form>
         <p class="form-caution">当窓口は民間の取次窓口です。ご案内する電力会社・料金・契約条件をご確認いただき、同意後に申し込みを進めます。</p>
@@ -128,7 +129,7 @@ $electricity_restart_tabs      = array(
   </main>
 
   <footer><p>Copyright © 電気サポート窓口 All Rights Reserved.</p></footer>
-  <div class="sticky-cta"><a href="tel:0120186556"><small>受付 10:00〜19:00</small><b>電話で無料相談</b></a><a href="#form" style="color:#d62d2f;background:#fff;border-left:1px solid #e7caca"><small>24時間受付</small><b>WEBで無料相談</b></a></div>
+  <div class="sticky-cta"><a href="tel:0120186556"><small>受付 10:00〜19:00</small><b>電気再開のお手続き（通話無料）</b></a><a href="#form" style="color:#d62d2f;background:#fff;border-left:1px solid #e7caca"><small>24時間受付！</small><b>WEBでお申し込み</b></a></div>
   <div class="cancel-modal" id="cancel-guide" role="dialog" aria-modal="true" aria-labelledby="cancel-guide-title" aria-hidden="true">
     <div class="cancel-modal-backdrop" data-modal-close></div>
     <div class="cancel-modal-card" role="document">
