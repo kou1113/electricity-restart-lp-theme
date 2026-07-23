@@ -25,9 +25,9 @@ defined( 'ABSPATH' ) || exit;
   <main class="document-main thanks-main">
     <article class="container narrow document-card thanks-card">
       <span class="thanks-icon" aria-hidden="true">✓</span>
-      <h1>お問い合わせを受け付けました</h1>
-      <p>送信いただきありがとうございます。内容を確認後、担当スタッフよりお電話でご連絡します。</p>
-      <p class="thanks-note">営業時間外に送信された場合は、翌営業日以降のご連絡となる場合があります。</p>
+      <h1>お問い合わせありがとうございます</h1>
+      <p>送信いただいた内容は正常に受け付けられました。<br>内容を確認の上、専任スタッフより順次お電話にてご連絡させていただきます。</p>
+      <p class="thanks-note">※数日経過しても連絡がない場合は、お手数ですがお電話にてお問い合わせください。</p>
       <a class="thanks-button" href="<?php echo esc_url( home_url( '/' ) ); ?>">トップページへ戻る</a>
     </article>
   </main>

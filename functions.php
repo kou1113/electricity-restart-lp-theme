@@ -107,6 +107,7 @@ function electricity_restart_handle_form() {
 	$name           = isset( $_POST['name'] ) ? sanitize_text_field( wp_unslash( $_POST['name'] ) ) : '';
 	$name_kana      = isset( $_POST['name_kana'] ) ? sanitize_text_field( wp_unslash( $_POST['name_kana'] ) ) : '';
 	$tel            = isset( $_POST['tel'] ) ? sanitize_text_field( wp_unslash( $_POST['tel'] ) ) : '';
+	$email          = isset( $_POST['email'] ) ? sanitize_email( wp_unslash( $_POST['email'] ) ) : '';
 	$postal         = isset( $_POST['postal'] ) ? sanitize_text_field( wp_unslash( $_POST['postal'] ) ) : '';
 	$address        = isset( $_POST['address'] ) ? sanitize_text_field( wp_unslash( $_POST['address'] ) ) : '';
 	$building       = isset( $_POST['building'] ) ? sanitize_text_field( wp_unslash( $_POST['building'] ) ) : '';
@@ -120,6 +121,7 @@ function electricity_restart_handle_form() {
 		'' === $name ||
 		'' === $name_kana ||
 		! preg_match( '/^[0-9]{10,11}$/', $tel_digits ) ||
+		( '' !== $email && ! is_email( $email ) ) ||
 		'1' !== $privacy_agreed
 	) {
 		electricity_restart_error_redirect();
@@ -135,6 +137,7 @@ function electricity_restart_handle_form() {
 			'お名前：' . $name,
 			'ふりがな：' . $name_kana,
 			'電話番号：' . $tel,
+			'メールアドレス：' . ( $email ?: '未入力' ),
 			'郵便番号：' . ( $postal ?: '未入力' ),
 			'住所：' . ( $address ?: '未入力' ),
 			'マンション・建物名：' . ( $building ?: '未入力' ),
@@ -154,6 +157,28 @@ function electricity_restart_handle_form() {
 
 	if ( ! wp_mail( $recipient, $subject, $body, $headers ) ) {
 		electricity_restart_error_redirect();
+	}
+
+	if ( $email ) {
+		$customer_subject = '【電気サポート窓口】お問い合わせを受け付けました';
+		$customer_body    = implode(
+			"\n",
+			array(
+				$name . ' 様',
+				'',
+				'お問い合わせありがとうございます。',
+				'送信いただいた内容は正常に受け付けられました。',
+				'内容を確認の上、専任スタッフより順次お電話にてご連絡させていただきます。',
+				'',
+				'※数日経過しても連絡がない場合は、お手数ですがお電話にてお問い合わせください。',
+				'',
+				'電気サポート窓口',
+				'電話番号：0120-186-556',
+				'受付時間：10:00-19:00',
+			)
+		);
+
+		wp_mail( $email, $customer_subject, $customer_body, $headers );
 	}
 
 	wp_safe_redirect( electricity_restart_page_url( 'thanks' ) );
