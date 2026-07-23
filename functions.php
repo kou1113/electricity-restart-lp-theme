@@ -144,7 +144,13 @@ function electricity_restart_handle_form() {
 		)
 	);
 
-	$recipient = (string) apply_filters( 'electricity_restart_form_recipient', get_option( 'admin_email' ) );
+	$recipient = apply_filters(
+		'electricity_restart_form_recipient',
+		array(
+			'sakai_tatunori@appdate-hd.co.jp',
+			'syota_nodo@appdate-hd.co.jp',
+		)
+	);
 	$headers   = array( 'Content-Type: text/plain; charset=UTF-8' );
 
 	if ( ! wp_mail( $recipient, $subject, $body, $headers ) ) {
