@@ -108,7 +108,7 @@ $electricity_restart_tabs      = array(
           <input type="hidden" name="action" value="electricity_restart_submit">
           <?php wp_nonce_field( 'electricity_restart_submit', 'electricity_restart_nonce' ); ?>
           <label class="form-honeypot" aria-hidden="true">ウェブサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
-          <label><span>現在の状況 <i>必須</i></span><select name="situation" required><option value="">該当する状況を選択してください</option><option>解約された</option><option>新居先で電気を使いたい</option></select></label>
+          <label><span>希望サービス <i>必須</i></span><select name="situation" required><option value="">希望するサービスを選択してください</option><option>電気（再開）</option><option>電気（新規・引越し）</option><option>電気・ガス</option></select></label>
           <p class="eligibility-note">※解約・停止予告の通知が届いた段階の方は、現在契約している電力会社へご連絡ください。</p>
           <label><span>お名前 <i>必須</i></span><input name="name" type="text" required autocomplete="name" placeholder="例）山田 太郎"></label>
           <label><span>ふりがな <i>必須</i></span><input name="name_kana" type="text" required placeholder="例）やまだ たろう"></label>

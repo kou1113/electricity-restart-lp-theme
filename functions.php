@@ -197,7 +197,7 @@ function electricity_restart_handle_form() {
 	$room           = isset( $_POST['room'] ) ? sanitize_text_field( wp_unslash( $_POST['room'] ) ) : '';
 	$privacy_agreed = isset( $_POST['privacy_agreed'] ) ? sanitize_text_field( wp_unslash( $_POST['privacy_agreed'] ) ) : '';
 	$tel_digits     = preg_replace( '/\D+/', '', $tel );
-	$allowed_situations = array( '解約された', '新居先で電気を使いたい' );
+	$allowed_situations = array( '電気（再開）', '電気（新規・引越し）', '電気・ガス' );
 
 	if (
 		! in_array( $situation, $allowed_situations, true ) ||
@@ -216,7 +216,7 @@ function electricity_restart_handle_form() {
 		array(
 			'電気サポート窓口LPから新しい相談がありました。',
 			'',
-			'現在の状況：' . $situation,
+			'希望サービス：' . $situation,
 			'お名前：' . $name,
 			'ふりがな：' . $name_kana,
 			'電話番号：' . $tel,
