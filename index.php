@@ -44,7 +44,6 @@ $electricity_restart_tabs      = array(
           <div class="service-labels"><strong><?php echo esc_html( $electricity_restart_area['name'] ); ?></strong><span>電気サポート窓口</span></div>
           <h1><?php echo esc_html( $electricity_restart_area['name'] ); ?></h1>
           <h2>最短当日開通・土日対応</h2>
-          <p class="hero-lead"><?php echo esc_html( $electricity_restart_area['description'] ); ?></p>
           <div class="hero-actions">
             <a class="start-button" href="tel:0120186556"><strong>電話で開始／再開手続き</strong><small>受付時間 10:00-19:00</small></a>
             <a class="web-button" href="#form"><strong>WEBで開始／再開手続き</strong><small>24時間対応</small></a>
