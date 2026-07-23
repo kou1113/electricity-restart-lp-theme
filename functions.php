@@ -148,7 +148,6 @@ function electricity_restart_handle_form() {
 		'electricity_restart_form_recipient',
 		array(
 			'sakai_tatunori@appdate-hd.co.jp',
-			'syota_nodo@appdate-hd.co.jp',
 		)
 	);
 	$headers   = array( 'Content-Type: text/plain; charset=UTF-8' );
