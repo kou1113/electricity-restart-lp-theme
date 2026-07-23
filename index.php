@@ -59,7 +59,7 @@ $electricity_restart_tabs      = array(
     <section class="area-summary" aria-labelledby="area-summary-title">
       <div class="container area-summary-inner">
         <div><h2 id="area-summary-title"><?php echo esc_html( $electricity_restart_area['name'] ); ?>全域で対応しています</h2></div>
-        <ul><?php foreach ( $electricity_restart_area['areas'] as $supported_area ) : ?><li><?php echo esc_html( $supported_area ); ?></li><?php endforeach; ?></ul>
+        <ul><?php foreach ( $electricity_restart_area['areas'] as $supported_area ) : ?><?php $area_length = function_exists( 'mb_strlen' ) ? mb_strlen( $supported_area ) : strlen( $supported_area ); ?><li class="<?php echo esc_attr( $area_length >= 30 ? 'is-wide' : ( $area_length >= 16 ? 'is-medium' : '' ) ); ?>"><?php echo esc_html( $supported_area ); ?></li><?php endforeach; ?></ul>
       </div>
     </section>
 
