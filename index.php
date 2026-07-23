@@ -103,6 +103,7 @@ $electricity_restart_tabs      = array(
           <p class="form-error" role="alert">送信できませんでした。入力内容をご確認のうえ、もう一度お試しください。</p>
         <?php endif; ?>
         <form id="contact-form" class="contact-form" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" method="post">
+          <p class="form-status-note">こちらの受付ではまだ手続きは完了しておりません。担当より順次お電話にてご連絡させていただきます。</p>
           <input type="hidden" name="action" value="electricity_restart_submit">
           <?php wp_nonce_field( 'electricity_restart_submit', 'electricity_restart_nonce' ); ?>
           <label class="form-honeypot" aria-hidden="true">ウェブサイト<input type="text" name="website" tabindex="-1" autocomplete="off"></label>
