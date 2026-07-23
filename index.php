@@ -54,7 +54,7 @@ $electricity_restart_tabs      = array(
       </div>
     </section>
 
-    <section class="stopped-electricity-notice"><div class="container"><strong>電気が止まってしまったお客様</strong><p>ご利用状況の確認が必要となります。恐れ入りますが、お電話にてお問い合わせください。</p><a href="tel:0120186556">0120-186-556</a></div></section>
+    <section class="stopped-electricity-notice"><div class="container"><a class="stopped-electricity-call" href="tel:0120186556" aria-label="電気が止まってしまったお客様のお問い合わせ 0120-186-556"><strong>電気が止まってしまったお客様</strong><p>ご利用状況の確認が必要となります。恐れ入りますが、お電話にてお問い合わせください。</p><span>0120-186-556</span></a></div></section>
 
     <section class="area-summary" aria-labelledby="area-summary-title">
       <div class="container area-summary-inner">
